@@ -1,8 +1,8 @@
-workers Integer(ENV['PUMA_WORKERS'] || 2)
-threads Integer(ENV['MIN_THREADS']  || 1), Integer(ENV['MAX_THREADS'] || 4)
+threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i
+threads threads_count, threads_count
+
+port        ENV.fetch("PORT") { 3000 }
+environment ENV.fetch("RAILS_ENV") { "development" }
+workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 
 preload_app!
-
-rackup      DefaultRackup
-port        ENV['PORT']     || 3000
-environment ENV['RACK_ENV'] || 'development'
